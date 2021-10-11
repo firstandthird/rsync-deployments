@@ -2,27 +2,29 @@
 
 echo "Start ---"
 
-VALID=true
+INVALID=false
 
 if [[ -z "$INPUT_DEPLOY_HOST" ]]; then
   echo "You Must pass in the deployment host"
-  VALID=false
+  INVALID=false
 fi
 
 if [[ -z "$INPUT_DEPLOY_PATH" ]]; then
   echo "You Must pass in the deployment path"
-  VALID=false
+  INVALID=false
 fi
 
 if [[ -z "$INPUT_DEPLOY_USER" ]]; then
   echo "You Must pass in the deployment user"
-  VALID=false
+  INVALID=false
 fi
 
-if [ "$VALID"=false ]; then
+if [ "$INVALID" = true ]; then
   echo " --- FAIL: Invalid parameters"
   exit 1
 fi
+
+exit 1
 
 FULL_PATH="$GITHUB_WORKSPACE/$INPUT_REPO_PATH"
 
