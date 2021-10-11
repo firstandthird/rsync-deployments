@@ -19,16 +19,6 @@ if [[ -z "$INPUT_DEPLOY_USER" ]]; then
   VALID=false
 fi
 
-if [[ -z "$INPUT_DEPLOY_HOST" ]]; then
-  echo "You Must pass in the deployment host"
-  VALID=false
-fi
-
-if [[ -z "$INPUT_REPO_PATH" ]]; then
-  echo "You Must pass in the path in the repository"
-  VALID=false
-fi
-
 if [ "$VALID"=false ]; then
   echo " --- FAIL: Invalid parameters"
   exit 1
