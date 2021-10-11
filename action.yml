@@ -1,0 +1,24 @@
+name: 'rsync Deploy'
+description: 'An rsync action that works with ssh key or password'
+inputs:
+  deploy_path:
+    description: The destination path on the deployment server
+    required: true
+  deploy_host:
+    description: The hostname or IP address of the deployment server
+    required: true
+  deploy_user:
+    description: The SSH user of the deployment server
+    required: true
+  repo_path:
+    description: The path to deploy from in the given repository
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    INPUT_DEPLOY_HOST: ${{ inputs.deploy_host }}
+    INPUT_DEPLOY_PATH: ${{ inputs.deploy_path }}
+    INPUT_DEPLOY_USER: ${{ inputs.deploy_user }}
+    INPUT_REPO_PATH: ${{ inputs.repo_path }}
