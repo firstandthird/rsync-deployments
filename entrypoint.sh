@@ -2,37 +2,29 @@
 
 echo "Start ---"
 
-VALID=true
+INVALID=false
 
 if [[ -z "$INPUT_DEPLOY_HOST" ]]; then
   echo "You Must pass in the deployment host"
-  VALID=false
+  INVALID=true
 fi
 
 if [[ -z "$INPUT_DEPLOY_PATH" ]]; then
   echo "You Must pass in the deployment path"
-  VALID=false
+  INVALID=false
 fi
 
 if [[ -z "$INPUT_DEPLOY_USER" ]]; then
   echo "You Must pass in the deployment user"
-  VALID=false
+  INVALID=false
 fi
 
-if [[ -z "$INPUT_DEPLOY_HOST" ]]; then
-  echo "You Must pass in the deployment host"
-  VALID=false
-fi
-
-if [[ -z "$INPUT_REPO_PATH" ]]; then
-  echo "You Must pass in the path in the repository"
-  VALID=false
-fi
-
-if [ "$VALID"=false ]; then
+if [ "$INVALID" = true ]; then
   echo " --- FAIL: Invalid parameters"
   exit 1
 fi
+
+echo " *** All parameters valid"
 
 FULL_PATH="$GITHUB_WORKSPACE/$INPUT_REPO_PATH"
 
@@ -50,3 +42,6 @@ if [[ "$DEPLOY_KEY" ]]; then
 
   rsync -ratv -rsh='ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no' $FULL_PATH $INPUT_DEPLOY_USER@$INPUT_DEPLOY_HOST:$INPUT_DEPLOY_PATH
 fi
+
+
+echo "DONE!"
