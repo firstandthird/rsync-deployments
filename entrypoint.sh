@@ -24,8 +24,6 @@ if [ "$INVALID" = true ]; then
   exit 1
 fi
 
-exit 1
-
 FULL_PATH="$GITHUB_WORKSPACE/$INPUT_REPO_PATH"
 
 if [[ "$DEPLOY_PASS" ]]; then
