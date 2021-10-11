@@ -6,7 +6,7 @@ INVALID=false
 
 if [[ -z "$INPUT_DEPLOY_HOST" ]]; then
   echo "You Must pass in the deployment host"
-  INVALID=false
+  INVALID=true
 fi
 
 if [[ -z "$INPUT_DEPLOY_PATH" ]]; then
@@ -24,6 +24,8 @@ if [ "$INVALID" = true ]; then
   exit 1
 fi
 
+echo " *** All parameters valid"
+
 FULL_PATH="$GITHUB_WORKSPACE/$INPUT_REPO_PATH"
 
 if [[ "$DEPLOY_PASS" ]]; then
@@ -40,3 +42,6 @@ if [[ "$DEPLOY_KEY" ]]; then
 
   rsync -ratv -rsh='ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no' $FULL_PATH $INPUT_DEPLOY_USER@$INPUT_DEPLOY_HOST:$INPUT_DEPLOY_PATH
 fi
+
+
+echo "DONE!"
